@@ -4,6 +4,7 @@ import Header from './component/Header.tsx';
 import CustomCalendar from './component/CustomCalendar.tsx';
 import DayPicker from './component/DayPicker.tsx';
 import TutorPicker from './component/TutorPicker.tsx';
+import ClassTypePopup from './component/ClassType/ClassTypePopup.tsx';
 
 function App() {
 	return (
@@ -13,6 +14,7 @@ function App() {
 				<DayPicker />
 				<CustomCalendar />
 				<TutorPicker />
+				<ClassTypePopup />
 			</div>
 		</div>
 	);

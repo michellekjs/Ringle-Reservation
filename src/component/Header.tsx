@@ -3,8 +3,8 @@ import ClassTypePicker from './ClassType/ClassTypePicker.tsx';
 
 function Header() {
 	return (
-		<div className='w-full h-24 bg-violet-50 flex flex-row justify-between items-center px-6'>
-			<div className='flex flex-row gap-x-7'>
+		<div className='w-full h-16 bg-purple-50 flex flex-row justify-between items-center px-6 '>
+			<div className='flex flex-row gap-x-7 h-full items-center'>
 				<div> 나가기 </div>
 				<div> 로고 </div>
 				<div> 수업 예약</div>
