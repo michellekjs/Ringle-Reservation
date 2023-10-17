@@ -10,11 +10,10 @@ function App() {
 	return (
 		<div>
 			<Header />
-			<div className='flex flex-row'>
+			<div className='flex flex-row justify-between'>
 				<DayPicker />
 				<CustomCalendar />
 				<TutorPicker />
-				<ClassTypePopup />
 			</div>
 		</div>
 	);

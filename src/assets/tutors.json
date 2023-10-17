@@ -1,0 +1,23 @@
+[
+	{
+		"name": "George",
+		"school": "London School of Economics",
+		"major": "LLB in Laws",
+		"acceptance": 86,
+		"hastag": "#LSE"
+	},
+	{
+		"name": "Johanna",
+		"school": "Hamilton College",
+		"major": "Political Science, Italian",
+		"acceptance": 96,
+		"hastag": "Writing"
+	},
+	{
+		"name": "Erin",
+		"school": "Cornell University",
+		"major": "Biological Sciences",
+		"acceptance": 94,
+		"hastag": "English Tutor"
+	}
+]

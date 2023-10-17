@@ -37,7 +37,7 @@ function DatePicker(props: any) {
 	};
 
 	return (
-		<div className='w-1/4 h-screen pt-20  '>
+		<div className='w-80 h-screen pt-20  '>
 			<DayPicker
 				id='test'
 				mode='range'
