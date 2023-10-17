@@ -37,7 +37,7 @@ function DatePicker(props: any) {
 	};
 
 	return (
-		<div className='w-80 h-screen pt-20  '>
+		<div className='w-80 h-screen pt-20 '>
 			<DayPicker
 				id='test'
 				mode='range'
@@ -45,6 +45,11 @@ function DatePicker(props: any) {
 				selected={range}
 				onDayClick={setWeekRange}
 				onDayMouseEnter={hoverAction}
+				// modifiersClassNames={{
+				// 	range_start: 'start',
+				// 	range_middle: 'middle',
+				// 	range_end: 'end',
+				// }}
 			/>
 		</div>
 	);

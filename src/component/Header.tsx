@@ -1,19 +1,27 @@
 import * as React from 'react';
 import ClassTypePicker from './ClassType/ClassTypePicker.tsx';
+import logo from '../assets/ringle_logo.png';
 
 function Header() {
 	return (
 		<div className='w-full h-16 bg-purple-50 flex flex-row justify-between items-center px-6 '>
-			<div className='flex flex-row gap-x-7 h-full items-center'>
-				<div> 나가기 </div>
-				<div> 로고 </div>
-				<div> 수업 예약</div>
-				<div> STEP 1. 튜터 및 시간선택 </div>
+			<div className='flex flex-row gap-x-5 h-full items-center'>
+				<div className='font-normal text-xs'> 나가기 </div>
+				<img
+					src={logo}
+					width={30}
+					height={30}
+				/>
+				<div className='font-semibold'> 수업 예약</div>
+				<div className='font-normal text-sm'> STEP 1. 튜터 및 시간선택 </div>
 				<ClassTypePicker />
 			</div>
-			<div className='flex flex-row gap-x-7'>
-				<div> 예약 신청한 수업 0</div>
-				<div> 다음</div>
+			<div className='flex flex-row gap-x-7 items-center'>
+				<div className='font-normal text-sm'> 예약 신청한 수업 0</div>
+				<button className='w-32 h-10 text-sm bg-slate-300 rounded-lg'>
+					{' '}
+					다음
+				</button>
 			</div>
 		</div>
 	);

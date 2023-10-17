@@ -12,10 +12,16 @@ function ClassTypePicker(props: any) {
 	return (
 		<div>
 			<button
-				className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+				className=' bg-blue-500 bg-white font-medium text-sm py-2 px-4 rounded-lg'
 				onClick={openModal}
 			>
-				1회 패키지(20분)
+				<div className='flex flex-row flex justify-center items-center gap-4'>
+					<div className='w-9 h-6 bg-blue-100 text-xs flex justify-center items-center'>
+						<div className='text-blue-400 rounded-lg'>20분 </div>
+					</div>
+					<div>1회 패키지(20분) </div>
+					<div>(1회 남음)</div>
+				</div>
 			</button>
 			<ClassTypePopup
 				modalOpen={modalOpen}
