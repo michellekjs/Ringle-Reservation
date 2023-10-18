@@ -39,7 +39,7 @@ const RadioCard = ({
 				value={name}
 				checked={selected === name}
 				onChange={onChange}
-				className='w-4 h-4 flex align-center'
+				className='w-6 h-6 flex self-center'
 			/>
 		</label>
 	);

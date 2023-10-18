@@ -115,7 +115,7 @@ function CustomCalendar(props) {
 					renderDateLabel={renderCustomDateLabel}
 				/>
 			</div>
-			<div className='w-[400px]'>
+			<div className='w-[500px]'>
 				<TutorPicker picked={schedule[0]} />
 			</div>
 		</div>

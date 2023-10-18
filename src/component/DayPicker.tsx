@@ -17,7 +17,6 @@ function DatePicker(props: any) {
 	const [range, setRange] = useState<DateRange | undefined>(defaultSelected);
 	const [hover, setHover] = useState<DateRange | undefined>(defaultSelected);
 	const [selectedSunday, setSelected] = useState<Date>(firstDayOfWeek.toDate());
-	console.log(selectedSunday);
 
 	const hoverAction = (date: Date) => {
 		const firstDayofHover = dayjs(date).startOf('week').toDate();
