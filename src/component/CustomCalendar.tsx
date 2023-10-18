@@ -26,18 +26,34 @@ function CustomCalendar(props) {
 		return time < new Date() ? (
 			<div className='border border-gray-100 h-8 w-1/8 bg-[#F6F4FA]' />
 		) : selected ? (
-			<div className='border-2 border-violet-400 border-solid h-6 w-1/8 rounded-lg text-xs text-gray-400 shadow-lg shadow-gray-400 flex justify-center place-items-center'>
-				<img
-					src={profile}
-					width={15}
-					height={15}
-				/>{' '}
-				튜터 선택
+			<div className='h-6 z-10'>
+				<div
+					className={
+						props.type == 20
+							? 'border-2 border-violet-400 border-solid h-6 w-1/8 rounded-lg text-xs text-gray-400 shadow-lg shadow-gray-400 flex justify-center place-items-center'
+							: 'border-2 border-violet-400 border-solid h-14 w-1/8 rounded-lg text-xs text-gray-400 shadow-lg shadow-gray-400 flex justify-center place-items-center z-50 '
+					}
+				>
+					<img
+						src={profile}
+						width={15}
+						height={15}
+					/>{' '}
+					튜터 선택
+				</div>
 			</div>
 		) : (
-			<div className='flex place-items-center border border-gray-100 border-solid h-8 hover:h-6 text-transparent text-xs hover:text-gray-800  hover:bg-violet-50 hover:h-8 w-1/8 hover:shadow-lg hover:shadow-gray-400 hover:rounded-lg'>
-				{ampm}
-				{time.getHours()}시 {time.getMinutes() == 0 ? '' : '30분'}
+			<div className='h-6 z-10'>
+				<div
+					className={
+						props.type == 20
+							? 'flex place-items-center border border-gray-100 border-solid h-8 hover:h-6 text-transparent text-xs hover:text-gray-800  hover:bg-violet-50 w-1/8 hover:shadow-lg hover:shadow-gray-400 hover:rounded-lg'
+							: 'flex place-items-center border border-gray-100 border-solid h-8 hover:h-14 text-transparent text-xs hover:text-gray-800  hover:bg-violet-50 w-1/8 hover:shadow-lg hover:shadow-gray-400 hover:rounded-lg'
+					}
+				>
+					{ampm}
+					{time.getHours()}시 {time.getMinutes() == 0 ? '' : '30분'}
+				</div>
 			</div>
 		);
 	};

@@ -55,6 +55,7 @@ function DatePicker(props: any) {
 				<CustomCalendar
 					sunday={selectedSunday}
 					today={today}
+					type={props.classType}
 				/>
 			</div>
 		</div>

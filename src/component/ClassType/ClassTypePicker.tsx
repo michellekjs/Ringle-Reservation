@@ -28,7 +28,8 @@ function ClassTypePicker(props: any) {
 		);
 	};
 
-	console.log('T', type);
+	props.setType(type);
+
 	return (
 		<div>
 			<button
