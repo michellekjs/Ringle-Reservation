@@ -4,7 +4,7 @@ import logo from '../assets/ringle_logo.png';
 
 function Header() {
 	return (
-		<div className='w-full h-16 bg-purple-50 flex flex-row justify-between items-center px-6 '>
+		<div className='w-full h-16 bg-[#FAF8FF] flex flex-row justify-between items-center px-6 '>
 			<div className='flex flex-row gap-x-5 h-full items-center'>
 				<div className='font-normal text-xs'> 나가기 </div>
 				<img

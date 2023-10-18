@@ -1,19 +1,14 @@
 import * as React from 'react';
 import './App.css';
 import Header from './component/Header.tsx';
-import CustomCalendar from './component/CustomCalendar.tsx';
 import DayPicker from './component/DayPicker.tsx';
-import TutorPicker from './component/TutorPicker.tsx';
+import { useState } from 'react';
 
 function App() {
 	return (
-		<div>
+		<div className='divide-y'>
 			<Header />
-			<div className='flex flex-row justify-between'>
-				<DayPicker />
-				<CustomCalendar />
-				<TutorPicker />
-			</div>
+			<DayPicker />
 		</div>
 	);
 }

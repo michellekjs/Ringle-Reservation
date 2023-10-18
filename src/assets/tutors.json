@@ -4,20 +4,23 @@
 		"school": "London School of Economics",
 		"major": "LLB in Laws",
 		"acceptance": 86,
-		"hastag": "#LSE"
+		"hastag": ["LSE"],
+		"profile": "man1"
 	},
 	{
 		"name": "Johanna",
 		"school": "Hamilton College",
 		"major": "Political Science, Italian",
 		"acceptance": 96,
-		"hastag": "Writing"
+		"hastag": ["Writing"],
+		"profile": "woman1"
 	},
 	{
 		"name": "Erin",
 		"school": "Cornell University",
 		"major": "Biological Sciences",
 		"acceptance": 94,
-		"hastag": "English Tutor"
+		"hastag": ["English Tutor"],
+		"profile": "man2"
 	}
 ]
