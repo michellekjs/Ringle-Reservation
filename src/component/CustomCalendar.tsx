@@ -5,13 +5,30 @@ import dayjs from 'dayjs';
 import profile from '../assets/profile.png';
 import TutorPicker from './TutorPicker';
 import close from '../assets/close.png';
+import {
+	Button,
+	Dialog,
+	DialogHeader,
+	DialogBody,
+	DialogFooter,
+} from '@material-tailwind/react';
 
 function CustomCalendar(props) {
 	const [schedule, setSchedule] = useState<Date[]>([]);
+	const [dateTutor, setDateTutor] = useState({});
 	const [tippopup, settippopup] = useState(true);
 	const [hover, setHover] = useState<boolean>(false);
+	const [tutor, setTutor] = useState('');
+	const [cancel, setcancelOpen] = useState(false);
+	const [cancelperson, setcancelPerson] = useState('');
+	console.log(cancel);
 
 	const handleChange = (newSchedule) => {
+		console.log(dateTutor, newSchedule.slice(-1)[0]);
+		if (dateTutor[newSchedule.slice(-1)[0]] != undefined) {
+			setcancelPerson(dateTutor[newSchedule.slice(-1)[0]]);
+			setcancelOpen(true);
+		}
 		setSchedule(newSchedule.slice(-1));
 	};
 
@@ -19,13 +36,35 @@ function CustomCalendar(props) {
 		settippopup(false);
 	};
 
+	const handleDialog = () => {
+		setcancelOpen(!cancel);
+	};
+
+	// console.log(dateTutor);
+	const setDT = (a) => {
+		const pickedDate: string = a[0];
+		const selectedOption = a[1];
+		dateTutor[pickedDate] = selectedOption;
+		setDateTutor(dateTutor);
+	};
+
 	const today = new Date();
 
 	const renderCustomDateCell = (time, selected, innerRef) => {
 		const ampm =
 			time.getHours() >= 18 ? '저녁' : time.getHours() >= 12 ? '오후' : '오전';
+
 		return time < new Date() ? (
 			<div className='border border-gray-100 z-10 h-8 w-1/8 bg-[#F6F4FA]' />
+		) : dateTutor[time] != undefined ? (
+			<div className='bg-gradient-to-r from-violet-200 to-violet-600 border border-violet-800 border-solid h-6 w-1/8 rounded-lg text-xs text-white shadow-lg shadow-gray-400 flex justify-center place-items-center z-20'>
+				<img
+					src={`/images/${dateTutor[time].profile}.jpeg`}
+					alt='profile'
+					className='w-5 h-5 rounded-full object-cover'
+				/>
+				선택완료
+			</div>
 		) : selected ? (
 			<div className='h-8'>
 				<div
@@ -89,6 +128,45 @@ function CustomCalendar(props) {
 	return (
 		<div className='flex flex-row'>
 			<div className=' flex flex-col w-full overflow-scroll h-screen gap-8 pr-4 pt-4'>
+				{cancel && (
+					<Dialog
+						open={cancel}
+						handler={handleDialog}
+						className='w-[450px] h-[200px] flex justify-center p-2'
+					>
+						<DialogBody className='flex flex-col text-sm gap-4'>
+							<div> {schedule.toString()} </div>
+							<div className='flex flex-row items-center gap-2'>
+								<img
+									src={`/images/${dateTutor[schedule].profile}.jpeg`}
+									alt='profile'
+									className='w-8 h-8 rounded-full object-cover'
+								/>
+								<div> {dateTutor[schedule].name}</div>
+							</div>
+							<div> 이 수업을 삭제하시겠습니까?</div>
+							<div>
+								<button
+									className='w-fit h-fit px-4 py-2 border border-solid border-violet-300 ga'
+									onClick={() => handleDialog(false)}
+								>
+									{' '}
+									취소{' '}
+								</button>
+								<button
+									className='w-fit h-fit px-4 py-2 bg-violet-800 text-white'
+									onClick={() => {
+										delete dateTutor[schedule];
+										handleDialog(false);
+									}}
+								>
+									{' '}
+									확인{' '}
+								</button>
+							</div>
+						</DialogBody>
+					</Dialog>
+				)}
 				{tippopup && (
 					<div className='flex  align-middle w-full py-2 rounded-l bg-violet-100 text-sm p-4 '>
 						{' '}
@@ -137,7 +215,10 @@ function CustomCalendar(props) {
 				/>
 			</div>
 			<div className='w-[500px]'>
-				<TutorPicker picked={schedule.length == 0 ? 0 : schedule[0]} />
+				<TutorPicker
+					picked={schedule.length == 0 ? 0 : schedule[0]}
+					setDT={setDT}
+				/>
 			</div>
 		</div>
 	);
