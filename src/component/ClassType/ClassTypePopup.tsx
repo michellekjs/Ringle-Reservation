@@ -1,29 +1,38 @@
-import {
-	Button,
-	Dialog,
-	DialogHeader,
-	DialogBody,
-	DialogFooter,
-} from '@material-tailwind/react';
+import { Dialog, DialogHeader, DialogBody } from '@material-tailwind/react';
 import { useState } from 'react';
 
-const RadioCard = ({ val, time, title, description, selected, onChange }) => {
+type RadioCardProps = {
+	val: number;
+	time: string;
+	title: string;
+	description: string;
+	selected: number;
+	onChange: any;
+};
+
+type classPopupProp = {
+	modalOpen: boolean;
+	openModal: Function;
+	change: Function;
+};
+
+const RadioCard = (props: RadioCardProps) => {
 	return (
 		<label className='bg-white p-4 rounded-md border border-solid mb-2 flex flex-row place-items-center w-full h-[80px] justify-between'>
 			<div className='flex flex-row place-items-center gap-4'>
 				<div
 					className={
-						val == 20
+						props.val === 20
 							? 'w-12 h-12 text-sm rounded-full bg-sky-100 flex place-items-center justify-center'
 							: 'w-12 h-12 text-sm rounded-full bg-green-100 flex place-items-center justify-center'
 					}
 				>
 					{' '}
-					{time}{' '}
+					{props.time}{' '}
 				</div>
 				<div>
-					<div className='text-md font-medium'>{title}</div>
-					<div className='text-gray-500 text-sm'>{description}</div>
+					<div className='text-md font-medium'>{props.title}</div>
+					<div className='text-gray-500 text-sm'>{props.description}</div>
 				</div>
 			</div>
 			<div className='flex flex-row gap-4 '>
@@ -33,24 +42,22 @@ const RadioCard = ({ val, time, title, description, selected, onChange }) => {
 				</div>
 				<input
 					type='radio'
-					value={val}
-					checked={selected == val}
-					onChange={onChange}
+					value={props.val}
+					checked={props.selected === props.val}
+					onChange={props.onChange}
 				/>
 			</div>
 		</label>
 	);
 };
 
-function ClassTypePopup(props) {
+function ClassTypePopup(props: classPopupProp) {
 	const [selectedOption, setSelectedOption] = useState(20);
-
-	props.change(selectedOption);
-
 	const handleRadioChange = (e) => {
 		setSelectedOption(e.target.value);
 		props.openModal();
 	};
+	props.change(selectedOption);
 
 	return (
 		<div className='grid place-items-center'>

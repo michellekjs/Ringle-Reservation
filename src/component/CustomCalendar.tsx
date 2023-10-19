@@ -1,17 +1,10 @@
 import * as React from 'react';
 import { useState } from 'react';
 import ScheduleSelector from 'react-schedule-selector';
-import dayjs from 'dayjs';
 import profile from '../assets/profile.png';
 import TutorPicker from './TutorPicker';
 import close from '../assets/close.png';
-import {
-	Button,
-	Dialog,
-	DialogHeader,
-	DialogBody,
-	DialogFooter,
-} from '@material-tailwind/react';
+import { Dialog, DialogBody } from '@material-tailwind/react';
 
 function CustomCalendar(props) {
 	const [schedule, setSchedule] = useState<Date[]>([]);
@@ -20,13 +13,24 @@ function CustomCalendar(props) {
 	const [cancel, setcancelOpen] = useState(false);
 	const [cancelperson, setcancelPerson] = useState();
 	const [tutor, setTutor] = useState('');
-	console.log(cancel);
+
+	const setDT = (a) => {
+		const pickedDate: string = a[0];
+		const selectedOption = a[1];
+		dateTutor[pickedDate] = selectedOption;
+		setTutor(selectedOption);
+		setDateTutor(dateTutor);
+	};
 
 	const handleChange = (newSchedule) => {
-		console.log(dateTutor, newSchedule.slice(-1)[0]);
-		if (dateTutor[newSchedule.slice(-1)[0]] != undefined) {
+		console.log(newSchedule);
+		console.log(dateTutor, [newSchedule.slice(-1)[0]]);
+		if (dateTutor[newSchedule.slice(-1)[0]] !== undefined) {
+			console.log(dateTutor[newSchedule.slice(-1)[0]]);
+			console.log(dateTutor);
 			setcancelPerson(dateTutor[newSchedule.slice(-1)[0]]);
 			setcancelOpen(true);
+			console.log(cancel);
 		}
 		setSchedule(newSchedule.slice(-1));
 	};
@@ -39,24 +43,13 @@ function CustomCalendar(props) {
 		setcancelOpen(!cancel);
 	};
 
-	// console.log(dateTutor);
-	const setDT = (a) => {
-		const pickedDate: string = a[0];
-		const selectedOption = a[1];
-		dateTutor[pickedDate] = selectedOption;
-		setTutor(selectedOption);
-		setDateTutor(dateTutor);
-	};
-
-	const today = new Date();
-
 	const renderCustomDateCell = (time, selected, innerRef) => {
 		const ampm =
 			time.getHours() >= 18 ? '저녁' : time.getHours() >= 12 ? '오후' : '오전';
 
 		return time < new Date() ? (
 			<div className='border border-gray-100 z-10 h-8 w-1/8 bg-[#F6F4FA]' />
-		) : dateTutor[time] != undefined ? (
+		) : dateTutor[time] !== undefined ? (
 			<div className='bg-gradient-to-r from-violet-200 to-violet-600 border border-violet-800 border-solid h-6 w-1/8 rounded-lg text-xs text-white shadow-lg shadow-gray-400 flex justify-center place-items-center z-20'>
 				<img
 					src={`/images/${dateTutor[time].profile}.jpeg`}
@@ -69,7 +62,7 @@ function CustomCalendar(props) {
 			<div className='h-8'>
 				<div
 					className={
-						props.type == 20
+						props.type === 20
 							? 'bg-white border-2 border-violet-400 border-solid h-6 w-1/8 rounded-lg text-xs text-gray-400 shadow-lg shadow-gray-400 flex justify-center place-items-center z-20'
 							: 'bg-white border-2 border-violet-400 border-solid h-14 w-1/8 rounded-lg text-xs text-gray-400 shadow-lg shadow-gray-400 flex justify-center place-items-center z-20 '
 					}
@@ -78,6 +71,7 @@ function CustomCalendar(props) {
 						src={profile}
 						width={15}
 						height={15}
+						alt='profile'
 					/>{' '}
 					튜터 선택
 				</div>
@@ -86,13 +80,13 @@ function CustomCalendar(props) {
 			<div className='h-8'>
 				<div
 					className={
-						props.type == 20
+						props.type === 20
 							? 'flex place-items-center border border-gray-100 border-solid h-8 hover:h-6 text-transparent text-xs hover:text-gray-800  hover:bg-violet-50 w-1/8 hover:shadow-lg hover:shadow-gray-400 hover:rounded-lg z-40'
 							: 'flex place-items-center border border-gray-100 border-solid h-8 hover:h-14 text-transparent text-xs hover:text-gray-800  hover:bg-violet-50 w-1/8 hover:shadow-lg hover:shadow-gray-400 hover:rounded-lg z-40'
 					}
 				>
 					{ampm}
-					{time.getHours()}시 {time.getMinutes() == 0 ? '' : '30분'}
+					{time.getHours()}시 {time.getMinutes() === 0 ? '' : '30분'}
 				</div>
 			</div>
 		);
@@ -104,7 +98,7 @@ function CustomCalendar(props) {
 
 		return (
 			<>
-				{time.getMinutes() == 0 ? (
+				{time.getMinutes() === 0 ? (
 					<div className='text-xs mr-4 text-zinc-400 '>
 						{ampm} {time.getHours()}시
 					</div>
@@ -178,6 +172,7 @@ function CustomCalendar(props) {
 							<div> 지금 한 달 수업을 미리 예약해보세요! </div>
 						</div>
 						<img
+							alt='profile'
 							src={close}
 							width='15'
 							height='15'
@@ -216,7 +211,7 @@ function CustomCalendar(props) {
 			</div>
 			<div className='w-[500px]'>
 				<TutorPicker
-					picked={schedule.length == 0 ? 0 : schedule[0]}
+					picked={schedule.length === 0 ? undefined : schedule[0]}
 					setDT={setDT}
 				/>
 			</div>

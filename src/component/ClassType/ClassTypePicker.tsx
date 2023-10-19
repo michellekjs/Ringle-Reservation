@@ -2,6 +2,10 @@ import * as React from 'react';
 import { useState } from 'react';
 import ClassTypePopup from './ClassTypePopup';
 
+type ClassType = {
+	time: Number;
+};
+
 function ClassTypePicker(props: any) {
 	const [modalOpen, setmodalOpen] = useState(false);
 	const [type, setType] = useState<Number>(20);
@@ -10,10 +14,10 @@ function ClassTypePicker(props: any) {
 		setmodalOpen(!modalOpen);
 	};
 
-	const ButtonModalContent = (props) => {
+	const ButtonModalContent = (props: ClassType) => {
 		return (
 			<div className='flex flex-row flex justify-start items-center gap-3'>
-				{props.time == 20 ? (
+				{props.time === 20 ? (
 					<div className='w-9 h-6 bg-blue-100 text-xs flex justify-center items-center'>
 						<div className='text-blue-400 rounded-lg'> 20분 </div>
 					</div>
@@ -22,7 +26,7 @@ function ClassTypePicker(props: any) {
 						<div className='text-green-400 rounded-lg'> 40분 </div>
 					</div>
 				)}
-				<div> 1회 패키지 {props.time == 20 && '(20분)'} </div>
+				<div> 1회 패키지 {props.time === 20 && '(20분)'} </div>
 				<div>(1회 남음)</div>
 			</div>
 		);

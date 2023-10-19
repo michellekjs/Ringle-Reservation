@@ -1,10 +1,20 @@
 import * as React from 'react';
 import tutorlist from '../tutors.ts';
 import { useState } from 'react';
-import { select } from '@material-tailwind/react';
 import { Tutor } from '../interfaces/Tutor.ts';
 
-const RadioCard = ({ person, selected, onChange }) => {
+type RadioCardProps = {
+	person: Tutor;
+	selected: Tutor | undefined;
+	onChange: React.FormEventHandler;
+};
+
+type TutorPickerProps = {
+	picked: Date | undefined;
+	setDT: Function;
+};
+
+const RadioCard = ({ person, selected, onChange }: RadioCardProps) => {
 	return (
 		<label className='bg-white p-4 flex flex-row  w-full h-40 justify-between'>
 			<div className='text-xs flex flex-col place-items-center gap-2'>
@@ -29,7 +39,7 @@ const RadioCard = ({ person, selected, onChange }) => {
 			<input
 				type='radio'
 				value={JSON.stringify(person)}
-				checked={selected ? selected.id == person.id : false}
+				checked={selected ? selected.id === person.id : false}
 				onChange={onChange}
 				className='w-6 h-6 flex self-center'
 			/>
@@ -37,9 +47,9 @@ const RadioCard = ({ person, selected, onChange }) => {
 	);
 };
 
-function TutorPicker(props) {
+function TutorPicker(props: TutorPickerProps) {
 	const [selectedOption, setSelectedOption] = useState<Tutor>();
-	const pickedDate: Date | Number = props.picked;
+	const pickedDate: Date | undefined = props.picked;
 
 	const handleRadioChange = (e) => {
 		setSelectedOption(JSON.parse(e.target.value));
@@ -48,7 +58,7 @@ function TutorPicker(props) {
 
 	const days = ['일', '월', '화', '수', '목', '금', '토'];
 
-	return pickedDate == 0 ? (
+	return pickedDate === undefined ? (
 		<div className='flex h-screen items-center place-content-center'>
 			{' '}
 			<div className=' border border-solid w-2/3 text-center px-4 py-4 text-gray-400'>
@@ -61,7 +71,7 @@ function TutorPicker(props) {
 				{' '}
 				{pickedDate.getMonth() + 1}월 {pickedDate.getDate()}일 (
 				{days[pickedDate.getDay()]}) {pickedDate.getHours()}:
-				{pickedDate.getMinutes() == 0 ? '00' : '30'}
+				{pickedDate.getMinutes() === 0 ? '00' : '30'}
 			</div>
 			<div>
 				<div className='pl-4 pt-4'> 튜터 직접 선택 </div>
