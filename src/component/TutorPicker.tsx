@@ -49,7 +49,7 @@ const RadioCard = ({ person, selected, onChange }: RadioCardProps) => {
 
 function TutorPicker(props: TutorPickerProps) {
 	const [selectedOption, setSelectedOption] = useState<Tutor>();
-	const pickedDate: Date | undefined = props.picked;
+	const pickedDate = props.picked;
 
 	const handleRadioChange = (e) => {
 		setSelectedOption(JSON.parse(e.target.value));

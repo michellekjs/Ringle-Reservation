@@ -9,8 +9,8 @@ import { Dialog, DialogBody } from '@material-tailwind/react';
 function CustomCalendar(props) {
 	const [schedule, setSchedule] = useState<Date[]>([]);
 	const [dateTutor, setDateTutor] = useState({});
-	const [tippopup, settippopup] = useState(true);
-	const [cancel, setcancelOpen] = useState(false);
+	const [tippopup, settippopup] = useState<boolean>(true);
+	const [cancel, setcancelOpen] = useState<boolean>(false);
 	const [cancelperson, setcancelPerson] = useState();
 	const [tutor, setTutor] = useState('');
 
@@ -20,17 +20,15 @@ function CustomCalendar(props) {
 		dateTutor[pickedDate] = selectedOption;
 		setTutor(selectedOption);
 		setDateTutor(dateTutor);
+		console.log('AAA', dateTutor);
 	};
 
 	const handleChange = (newSchedule) => {
-		console.log(newSchedule);
-		console.log(dateTutor, [newSchedule.slice(-1)[0]]);
 		if (dateTutor[newSchedule.slice(-1)[0]] !== undefined) {
 			console.log(dateTutor[newSchedule.slice(-1)[0]]);
 			console.log(dateTutor);
 			setcancelPerson(dateTutor[newSchedule.slice(-1)[0]]);
 			setcancelOpen(true);
-			console.log(cancel);
 		}
 		setSchedule(newSchedule.slice(-1));
 	};
@@ -38,7 +36,6 @@ function CustomCalendar(props) {
 	const closeButtonClick = () => {
 		settippopup(false);
 	};
-
 	const handleDialog = () => {
 		setcancelOpen(!cancel);
 	};
