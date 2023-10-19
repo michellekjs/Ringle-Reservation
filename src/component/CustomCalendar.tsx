@@ -4,6 +4,7 @@ import ScheduleSelector from 'react-schedule-selector';
 import dayjs from 'dayjs';
 import profile from '../assets/profile.png';
 import TutorPicker from './TutorPicker';
+import close from '../assets/close.png';
 
 function CustomCalendar(props) {
 	const [schedule, setSchedule] = useState<Date[]>([]);
@@ -89,17 +90,21 @@ function CustomCalendar(props) {
 		<div className='flex flex-row'>
 			<div className=' flex flex-col w-full overflow-scroll h-screen gap-8 pr-4 pt-4'>
 				{tippopup && (
-					<div className='flex w-full py-2 rounded-l place-content-center bg-violet-100 text-sm '>
+					<div className='flex  align-middle w-full py-2 rounded-l bg-violet-100 text-sm p-4 '>
 						{' '}
-						<div className='text-violet-500 mr-4 font-bold'> Ringle's Tip </div>
-						<div> 지금 한 달 수업을 미리 예약해보세요! </div>
-						<button
-							className='self-end'
+						<div className='flex flex-row m-auto'>
+							<div className='text-violet-500 mr-4 font-bold'>
+								{' '}
+								Ringle's Tip{' '}
+							</div>
+							<div> 지금 한 달 수업을 미리 예약해보세요! </div>
+						</div>
+						<img
+							src={close}
+							width='15'
+							height='15'
 							onClick={closeButtonClick}
-						>
-							{' '}
-							x{' '}
-						</button>
+						/>
 					</div>
 				)}
 				<div className='flex flex-row gap-1'>

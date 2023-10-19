@@ -43,7 +43,7 @@ const RadioCard = ({ val, time, title, description, selected, onChange }) => {
 };
 
 function ClassTypePopup(props) {
-	const [selectedOption, setSelectedOption] = useState('');
+	const [selectedOption, setSelectedOption] = useState(20);
 
 	props.change(selectedOption);
 
