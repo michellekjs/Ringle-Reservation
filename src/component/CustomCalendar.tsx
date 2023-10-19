@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ScheduleSelector from 'react-schedule-selector';
 import profile from '../assets/profile.png';
 import TutorPicker from './TutorPicker';
@@ -13,6 +13,8 @@ function CustomCalendar(props) {
 	const [cancel, setcancelOpen] = useState<boolean>(false);
 	const [cancelperson, setcancelPerson] = useState();
 	const [tutor, setTutor] = useState('');
+
+	useEffect(() => setDateTutor(dateTutor));
 
 	const setDT = (a) => {
 		const pickedDate: string = a[0];
@@ -59,7 +61,7 @@ function CustomCalendar(props) {
 			<div className='h-8'>
 				<div
 					className={
-						props.type === 20
+						props.type == 20
 							? 'bg-white border-2 border-violet-400 border-solid h-6 w-1/8 rounded-lg text-xs text-gray-400 shadow-lg shadow-gray-400 flex justify-center place-items-center z-20'
 							: 'bg-white border-2 border-violet-400 border-solid h-14 w-1/8 rounded-lg text-xs text-gray-400 shadow-lg shadow-gray-400 flex justify-center place-items-center z-20 '
 					}
@@ -77,7 +79,7 @@ function CustomCalendar(props) {
 			<div className='h-8'>
 				<div
 					className={
-						props.type === 20
+						props.type == 20
 							? 'flex place-items-center border border-gray-100 border-solid h-8 hover:h-6 text-transparent text-xs hover:text-gray-800  hover:bg-violet-50 w-1/8 hover:shadow-lg hover:shadow-gray-400 hover:rounded-lg z-40'
 							: 'flex place-items-center border border-gray-100 border-solid h-8 hover:h-14 text-transparent text-xs hover:text-gray-800  hover:bg-violet-50 w-1/8 hover:shadow-lg hover:shadow-gray-400 hover:rounded-lg z-40'
 					}
