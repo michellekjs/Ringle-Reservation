@@ -9,6 +9,16 @@ import dayjs from 'dayjs';
 const today = dayjs();
 const firstDayOfWeek = today.startOf('week');
 
+const css = `
+.my-selected:not([disabled]) { 
+    font-weight: bold; 
+    border-top: 2px solid purple;
+    border-left: none;
+    border-right:none;
+    border-bottom: 2px solid purple;
+  }
+ `;
+
 function DatePicker(props: any) {
 	const defaultSelected: DateRange = {
 		from: firstDayOfWeek.toDate(),
@@ -39,6 +49,7 @@ function DatePicker(props: any) {
 
 	return (
 		<div className='w-full h-screen flex flex-row justify-between'>
+			<style> {css} </style>
 			<div className='w-fit h-screen pt-20 text-xs'>
 				<DayPicker
 					showOutsideDays
@@ -48,7 +59,9 @@ function DatePicker(props: any) {
 					selected={range}
 					onDayClick={setWeekRange}
 					onDayMouseEnter={hoverAction}
-					style={{}}
+					modifiersClassNames={{
+						selected: 'my-selected',
+					}}
 				/>
 			</div>
 			<div className='w-full'>

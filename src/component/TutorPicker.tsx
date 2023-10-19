@@ -47,7 +47,7 @@ const RadioCard = ({
 
 function TutorPicker(props) {
 	const [selectedOption, setSelectedOption] = useState('');
-	const pickedDate: Date = props.picked;
+	const pickedDate: Date | Number = props.picked;
 
 	const handleRadioChange = (e) => {
 		setSelectedOption(e.target.value);
@@ -55,7 +55,14 @@ function TutorPicker(props) {
 
 	const days = ['일', '월', '화', '수', '목', '금', '토'];
 
-	return (
+	return pickedDate == 0 ? (
+		<div className='flex h-screen items-center place-content-center'>
+			{' '}
+			<div className=' border border-solid w-2/3 text-center px-4 py-4 text-gray-400'>
+				캘린더에서 원하시는 시간을 눌러 수업을 신청해 주세요{' '}
+			</div>
+		</div>
+	) : (
 		<div className='h-screen border-l-2 divide-y divide-solid '>
 			<div className='flex h-12 items-center pl-4 '>
 				{' '}

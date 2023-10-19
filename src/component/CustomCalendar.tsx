@@ -6,7 +6,7 @@ import profile from '../assets/profile.png';
 import TutorPicker from './TutorPicker';
 
 function CustomCalendar(props) {
-	const [schedule, setSchedule] = useState([new Date()]);
+	const [schedule, setSchedule] = useState<Date[]>([]);
 	const [tippopup, settippopup] = useState(true);
 	const [hover, setHover] = useState<boolean>(false);
 
@@ -24,14 +24,14 @@ function CustomCalendar(props) {
 		const ampm =
 			time.getHours() >= 18 ? '저녁' : time.getHours() >= 12 ? '오후' : '오전';
 		return time < new Date() ? (
-			<div className='border border-gray-100 h-8 w-1/8 bg-[#F6F4FA]' />
+			<div className='border border-gray-100 z-10 h-8 w-1/8 bg-[#F6F4FA]' />
 		) : selected ? (
-			<div className='h-6 z-10'>
+			<div className='h-8'>
 				<div
 					className={
 						props.type == 20
-							? 'border-2 border-violet-400 border-solid h-6 w-1/8 rounded-lg text-xs text-gray-400 shadow-lg shadow-gray-400 flex justify-center place-items-center'
-							: 'border-2 border-violet-400 border-solid h-14 w-1/8 rounded-lg text-xs text-gray-400 shadow-lg shadow-gray-400 flex justify-center place-items-center z-50 '
+							? 'bg-white border-2 border-violet-400 border-solid h-6 w-1/8 rounded-lg text-xs text-gray-400 shadow-lg shadow-gray-400 flex justify-center place-items-center z-20'
+							: 'bg-white border-2 border-violet-400 border-solid h-14 w-1/8 rounded-lg text-xs text-gray-400 shadow-lg shadow-gray-400 flex justify-center place-items-center z-20 '
 					}
 				>
 					<img
@@ -43,12 +43,12 @@ function CustomCalendar(props) {
 				</div>
 			</div>
 		) : (
-			<div className='h-6 z-10'>
+			<div className='h-8'>
 				<div
 					className={
 						props.type == 20
-							? 'flex place-items-center border border-gray-100 border-solid h-8 hover:h-6 text-transparent text-xs hover:text-gray-800  hover:bg-violet-50 w-1/8 hover:shadow-lg hover:shadow-gray-400 hover:rounded-lg'
-							: 'flex place-items-center border border-gray-100 border-solid h-8 hover:h-14 text-transparent text-xs hover:text-gray-800  hover:bg-violet-50 w-1/8 hover:shadow-lg hover:shadow-gray-400 hover:rounded-lg'
+							? 'flex place-items-center border border-gray-100 border-solid h-8 hover:h-6 text-transparent text-xs hover:text-gray-800  hover:bg-violet-50 w-1/8 hover:shadow-lg hover:shadow-gray-400 hover:rounded-lg z-40'
+							: 'flex place-items-center border border-gray-100 border-solid h-8 hover:h-14 text-transparent text-xs hover:text-gray-800  hover:bg-violet-50 w-1/8 hover:shadow-lg hover:shadow-gray-400 hover:rounded-lg z-40'
 					}
 				>
 					{ampm}
@@ -132,7 +132,7 @@ function CustomCalendar(props) {
 				/>
 			</div>
 			<div className='w-[500px]'>
-				<TutorPicker picked={schedule[0]} />
+				<TutorPicker picked={schedule.length == 0 ? 0 : schedule[0]} />
 			</div>
 		</div>
 	);
