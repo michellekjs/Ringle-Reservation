@@ -17,10 +17,9 @@ function CustomCalendar(props) {
 	const [schedule, setSchedule] = useState<Date[]>([]);
 	const [dateTutor, setDateTutor] = useState({});
 	const [tippopup, settippopup] = useState(true);
-	const [hover, setHover] = useState<boolean>(false);
-	const [tutor, setTutor] = useState('');
 	const [cancel, setcancelOpen] = useState(false);
-	const [cancelperson, setcancelPerson] = useState('');
+	const [cancelperson, setcancelPerson] = useState();
+	const [tutor, setTutor] = useState('');
 	console.log(cancel);
 
 	const handleChange = (newSchedule) => {
@@ -45,6 +44,7 @@ function CustomCalendar(props) {
 		const pickedDate: string = a[0];
 		const selectedOption = a[1];
 		dateTutor[pickedDate] = selectedOption;
+		setTutor(selectedOption);
 		setDateTutor(dateTutor);
 	};
 
@@ -145,16 +145,16 @@ function CustomCalendar(props) {
 								<div> {dateTutor[schedule].name}</div>
 							</div>
 							<div> 이 수업을 삭제하시겠습니까?</div>
-							<div>
+							<div className='flex justify-end gap-3'>
 								<button
-									className='w-fit h-fit px-4 py-2 border border-solid border-violet-300 ga'
+									className='w-fit h-fit px-8 py-2 border border-solid border-violet-300 rounded-xl'
 									onClick={() => handleDialog(false)}
 								>
 									{' '}
 									취소{' '}
 								</button>
 								<button
-									className='w-fit h-fit px-4 py-2 bg-violet-800 text-white'
+									className='w-fit h-fit px-8 py-2 bg-violet-800 text-white rounded-xl'
 									onClick={() => {
 										delete dateTutor[schedule];
 										handleDialog(false);
