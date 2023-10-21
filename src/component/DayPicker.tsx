@@ -62,9 +62,9 @@ function DatePicker(props: any) {
 	//function related to communication between customcalendar
 
 	return (
-		<div className='w-full h-screen flex flex-row justify-between'>
+		<div className='w-screen h-screen flex flex-row justify-between'>
 			<style> {css} </style>
-			<div className='w-1/4 h-screen pt-20 text-xs'>
+			<div className='w-[1/4 h-screen pt-20 text-xs'>
 				<DayPicker
 					showOutsideDays
 					id='test'
@@ -78,7 +78,7 @@ function DatePicker(props: any) {
 					}}
 				/>
 			</div>
-			<div className='w-3/4 flex flex-row'>
+			<div className='w-1/2'>
 				<CustomCalendar
 					sunday={selectedSunday}
 					today={today}
@@ -87,13 +87,12 @@ function DatePicker(props: any) {
 					dateTutor={setDateTutor}
 					tutor={setTutor}
 				/>
-
-				<div className='w-[500px]'>
-					<TutorPicker
-						picked={schedule.length === 0 ? undefined : schedule[0]}
-						setDT={setDT}
-					/>
-				</div>
+			</div>
+			<div className='w-1/4'>
+				<TutorPicker
+					picked={schedule.length === 0 ? undefined : schedule[0]}
+					setDT={setDT}
+				/>
 			</div>
 		</div>
 	);

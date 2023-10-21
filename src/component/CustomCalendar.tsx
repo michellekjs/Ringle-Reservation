@@ -45,7 +45,7 @@ function CustomCalendar(props) {
 
 		return time < new Date() ? (
 			<div
-				className='border border-gray-100 z-10 h-8 w-1/8 bg-[#F6F4FA]'
+				className='border border-gray-100 z-10 h-8 bg-[#F6F4FA]'
 				// onClick={onDateClick}
 			/>
 		) : dateTutor[time] !== undefined ? (
