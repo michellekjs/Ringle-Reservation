@@ -9,3 +9,6 @@ in the root repository..
 
 https://github.com/michellekjs/Ringle-Reservation/assets/48044379/182f385d-5e15-4100-ae5d-a304952873e8
 
+### The main branch is the submission up until the due date !
+
+*(revision-after-submission branch is for personal improvement of the code)*
