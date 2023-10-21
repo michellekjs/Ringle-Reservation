@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import ScheduleSelector from 'react-schedule-selector';
 import profile from '../assets/profile.png';
-import TutorPicker from './TutorPicker';
 import close from '../assets/close.png';
 import { Dialog, DialogBody } from '@material-tailwind/react';
 
@@ -14,26 +13,18 @@ function CustomCalendar(props) {
 	const [cancel, setcancelOpen] = useState<boolean>(false);
 	const [cancelperson, setcancelPerson] = useState();
 	const [tutor, setTutor] = useState('');
+	const [change, setChange] = useState<boolean>(true);
 
-	// useEffect(() => s);
-	console.log(schedule);
-	const setDT = (a) => {
-		const pickedDate: string = a[0];
-		const selectedOption = a[1];
-		dateTutor[pickedDate] = selectedOption;
-		setTutor(selectedOption);
-		setDateTutor(dateTutor);
-		console.log('AAA', dateTutor);
-	};
-
-	// setOnDateClick
+	props.setSchedule(schedule);
+	props.dateTutor(dateTutor);
+	props.tutor(tutor);
 
 	const handleChange = (newSchedule) => {
 		if (newSchedule.length < lastschedule.length) {
 			newSchedule = lastschedule;
 		}
-		console.log(newSchedule);
-		if (dateTutor[newSchedule.slice(-1)[0]] !== undefined) {
+		if (dateTutor[newSchedule.slice(-1)[0]] != undefined) {
+			console.log(tutor, dateTutor[newSchedule.slice(-1)[0]]);
 			setcancelPerson(dateTutor[newSchedule.slice(-1)[0]]);
 			setcancelOpen(true);
 		}
@@ -58,7 +49,13 @@ function CustomCalendar(props) {
 				// onClick={onDateClick}
 			/>
 		) : dateTutor[time] !== undefined ? (
-			<div className='bg-gradient-to-r from-violet-200 to-violet-600 border border-violet-800 border-solid h-6 w-1/8 rounded-lg text-xs text-white shadow-lg shadow-gray-400 flex justify-center place-items-center z-20'>
+			<div
+				className={
+					props.type == 20
+						? 'bg-gradient-to-r from-violet-200 to-violet-600 border border-violet-800 border-solid h-6 w-1/8 rounded-lg text-xs text-white shadow-lg shadow-gray-400 flex justify-center place-items-center z-20'
+						: 'bg-gradient-to-r from-violet-200 to-violet-600 border border-violet-800 border-solid h-14 w-1/8 rounded-lg text-xs text-white shadow-lg shadow-gray-400 flex justify-center place-items-center z-40'
+				}
+			>
 				<img
 					src={`/images/${dateTutor[time].profile}.jpeg`}
 					alt='profile'
@@ -215,12 +212,6 @@ function CustomCalendar(props) {
 					renderDateCell={renderCustomDateCell}
 					renderTimeLabel={renderCustomTimeLabel}
 					renderDateLabel={renderCustomDateLabel}
-				/>
-			</div>
-			<div className='w-[500px]'>
-				<TutorPicker
-					picked={schedule.length === 0 ? undefined : schedule[0]}
-					setDT={setDT}
 				/>
 			</div>
 		</div>

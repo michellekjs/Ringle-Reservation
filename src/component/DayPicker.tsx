@@ -4,6 +4,7 @@ import CustomCalendar from '../component/CustomCalendar.tsx';
 import { addDays, format } from 'date-fns';
 import { DateRange, DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
+import TutorPicker from './TutorPicker.tsx';
 import dayjs from 'dayjs';
 
 const today = dayjs();
@@ -24,9 +25,13 @@ function DatePicker(props: any) {
 		from: firstDayOfWeek.toDate(),
 		to: addDays(firstDayOfWeek.toDate(), 6),
 	};
+	// functions related to datepicker
 	const [range, setRange] = useState<DateRange | undefined>(defaultSelected);
 	const [hover, setHover] = useState<DateRange | undefined>(defaultSelected);
 	const [selectedSunday, setSelected] = useState<Date>(firstDayOfWeek.toDate());
+	const [schedule, setSchedule] = useState<Date[]>([]);
+	const [dateTutor, setDateTutor] = useState({});
+	const [tutor, setTutor] = useState('');
 
 	const hoverAction = (date: Date) => {
 		const firstDayofHover = dayjs(date).startOf('week').toDate();
@@ -35,6 +40,14 @@ function DatePicker(props: any) {
 			to: addDays(firstDayofHover, 6),
 		};
 		setHover(range);
+	};
+
+	const setDT = (a) => {
+		const pickedDate: string = a[0];
+		const selectedOption = a[1];
+		dateTutor[pickedDate] = selectedOption;
+		setTutor(selectedOption);
+		setDateTutor(dateTutor);
 	};
 
 	const setWeekRange = (date: Date) => {
@@ -46,11 +59,12 @@ function DatePicker(props: any) {
 		setRange(newRange);
 		setSelected(selected);
 	};
+	//function related to communication between customcalendar
 
 	return (
 		<div className='w-full h-screen flex flex-row justify-between'>
 			<style> {css} </style>
-			<div className='w-fit h-screen pt-20 text-xs'>
+			<div className='w-1/4 h-screen pt-20 text-xs'>
 				<DayPicker
 					showOutsideDays
 					id='test'
@@ -64,12 +78,22 @@ function DatePicker(props: any) {
 					}}
 				/>
 			</div>
-			<div className='w-full'>
+			<div className='w-3/4 flex flex-row'>
 				<CustomCalendar
 					sunday={selectedSunday}
 					today={today}
 					type={props.classType}
+					setSchedule={setSchedule}
+					dateTutor={setDateTutor}
+					tutor={setTutor}
 				/>
+
+				<div className='w-[500px]'>
+					<TutorPicker
+						picked={schedule.length === 0 ? undefined : schedule[0]}
+						setDT={setDT}
+					/>
+				</div>
 			</div>
 		</div>
 	);
