@@ -8,14 +8,15 @@ import { Dialog, DialogBody } from '@material-tailwind/react';
 
 function CustomCalendar(props) {
 	const [schedule, setSchedule] = useState<Date[]>([]);
+	const [lastschedule, setLastSchedule] = useState<Date[]>([]);
 	const [dateTutor, setDateTutor] = useState({});
 	const [tippopup, settippopup] = useState<boolean>(true);
 	const [cancel, setcancelOpen] = useState<boolean>(false);
 	const [cancelperson, setcancelPerson] = useState();
 	const [tutor, setTutor] = useState('');
 
-	useEffect(() => setDateTutor(dateTutor));
-
+	// useEffect(() => s);
+	console.log(schedule);
 	const setDT = (a) => {
 		const pickedDate: string = a[0];
 		const selectedOption = a[1];
@@ -25,14 +26,19 @@ function CustomCalendar(props) {
 		console.log('AAA', dateTutor);
 	};
 
+	// setOnDateClick
+
 	const handleChange = (newSchedule) => {
+		if (newSchedule.length < lastschedule.length) {
+			newSchedule = lastschedule;
+		}
+		console.log(newSchedule);
 		if (dateTutor[newSchedule.slice(-1)[0]] !== undefined) {
-			console.log(dateTutor[newSchedule.slice(-1)[0]]);
-			console.log(dateTutor);
 			setcancelPerson(dateTutor[newSchedule.slice(-1)[0]]);
 			setcancelOpen(true);
 		}
 		setSchedule(newSchedule.slice(-1));
+		setLastSchedule(newSchedule);
 	};
 
 	const closeButtonClick = () => {
@@ -47,7 +53,10 @@ function CustomCalendar(props) {
 			time.getHours() >= 18 ? '저녁' : time.getHours() >= 12 ? '오후' : '오전';
 
 		return time < new Date() ? (
-			<div className='border border-gray-100 z-10 h-8 w-1/8 bg-[#F6F4FA]' />
+			<div
+				className='border border-gray-100 z-10 h-8 w-1/8 bg-[#F6F4FA]'
+				// onClick={onDateClick}
+			/>
 		) : dateTutor[time] !== undefined ? (
 			<div className='bg-gradient-to-r from-violet-200 to-violet-600 border border-violet-800 border-solid h-6 w-1/8 rounded-lg text-xs text-white shadow-lg shadow-gray-400 flex justify-center place-items-center z-20'>
 				<img
