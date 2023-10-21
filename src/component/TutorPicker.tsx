@@ -1,6 +1,6 @@
 import * as React from 'react';
 import tutorlist from '../tutors.ts';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Tutor } from '../interfaces/Tutor.ts';
 
 type RadioCardProps = {
@@ -48,9 +48,12 @@ const RadioCard = ({ person, selected, onChange }: RadioCardProps) => {
 };
 
 function TutorPicker(props: TutorPickerProps) {
-	const [selectedOption, setSelectedOption] = useState<Tutor>();
+	const [selectedOption, setSelectedOption] = useState<Tutor | null>();
 	const pickedDate = props.picked;
 	const [availabletutor, setAvailableTutors] = useState(tutorlist);
+	console.log(pickedDate);
+
+	useEffect(() => setSelectedOption(null), [props.picked]);
 
 	const handleRadioChange = (e) => {
 		setSelectedOption(JSON.parse(e.target.value));
