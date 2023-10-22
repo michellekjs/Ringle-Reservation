@@ -19,22 +19,24 @@ function CustomCalendar(props) {
 	});
 
 	const handleChange = (newSchedule) => {
-		if (dateTutor[newSchedule.slice(-1)[0]] == undefined) {
-			console.log('FUFFUFUFUUFUF');
-			if (newSchedule.length == 0) {
-				console.log('SESEESEE');
-				// setcancelPerson(dateTutor[newSchedule.slice(-1)[0]]);
-				setcancelOpen(true);
+		if (newSchedule.slice(-1)[0] >= new Date()) {
+			if (dateTutor[newSchedule.slice(-1)[0]] == undefined) {
+				console.log('FUFFUFUFUUFUF');
+				if (newSchedule.length == 0) {
+					console.log('SESEESEE');
+					// setcancelPerson(dateTutor[newSchedule.slice(-1)[0]]);
+					setcancelOpen(true);
+				}
 			}
-		}
 
-		if (newSchedule.length < lastschedule.length) {
-			newSchedule = lastschedule;
-		}
+			if (newSchedule.length < lastschedule.length) {
+				newSchedule = lastschedule;
+			}
 
-		setSchedule(newSchedule.slice(-1));
-		setLastSchedule(newSchedule);
-		console.log(cancel);
+			setSchedule(newSchedule.slice(-1));
+			setLastSchedule(newSchedule);
+			console.log(cancel);
+		}
 	};
 
 	const closeButtonClick = () => {
