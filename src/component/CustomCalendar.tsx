@@ -12,35 +12,29 @@ function CustomCalendar(props) {
 	const [tippopup, settippopup] = useState<boolean>(true);
 	const [cancel, setcancelOpen] = useState<boolean>(false);
 	const [cancelperson, setcancelPerson] = useState();
-	const [tutor, setTutor] = useState('');
-	const [change, setChange] = useState<boolean>(true);
 
 	useEffect(() => {
 		props.setSchedule(schedule);
-		props.dateTutor(dateTutor);
+		setDateTutor(props.dateTutor);
 	});
 
 	const handleChange = (newSchedule) => {
-		console.log(
-			'SCHEUDLE CONSOLE',
-			newSchedule.length == 0,
-			dateTutor[newSchedule.slice(-1)[0]]
-		);
-		// dateTutor[newSchedule.slice(-1)[0]];
+		if (dateTutor[newSchedule.slice(-1)[0]] == undefined) {
+			console.log('FUFFUFUFUUFUF');
+			if (newSchedule.length == 0) {
+				console.log('SESEESEE');
+				// setcancelPerson(dateTutor[newSchedule.slice(-1)[0]]);
+				setcancelOpen(true);
+			}
+		}
 
 		if (newSchedule.length < lastschedule.length) {
 			newSchedule = lastschedule;
 		}
-		if (
-			dateTutor[newSchedule.slice(-1)[0]] != undefined &&
-			newSchedule.length == 0
-		) {
-			console.log(tutor, dateTutor[newSchedule.slice(-1)[0]]);
-			setcancelPerson(dateTutor[newSchedule.slice(-1)[0]]);
-			setcancelOpen(true);
-		}
+
 		setSchedule(newSchedule.slice(-1));
 		setLastSchedule(newSchedule);
+		console.log(cancel);
 	};
 
 	const closeButtonClick = () => {

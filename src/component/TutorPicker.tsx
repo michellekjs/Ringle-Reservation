@@ -51,18 +51,16 @@ function TutorPicker(props: TutorPickerProps) {
 	const [selectedOption, setSelectedOption] = useState<Tutor | null>();
 	const pickedDate = props.picked;
 	const [availabletutor, setAvailableTutors] = useState(tutorlist);
-	console.log(pickedDate);
 
 	useEffect(() => setSelectedOption(null), [props.picked]);
 
 	const handleRadioChange = (e) => {
 		setSelectedOption(JSON.parse(e.target.value));
 		props.pickTutor(JSON.parse(e.target.value));
-		// props.setDT([pickedDate, JSON.parse(e.target.value)]);
 	};
 
 	const days = ['일', '월', '화', '수', '목', '금', '토'];
-
+	console.log(pickedDate);
 	return pickedDate === undefined ? (
 		<div className='flex h-screen items-center place-content-center'>
 			{' '}

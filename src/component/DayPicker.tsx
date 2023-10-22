@@ -48,14 +48,6 @@ function DatePicker(props: any) {
 		setDateTutor(dateTutor);
 	};
 
-	// const setDT = (a) => {
-	// 	const pickedDate: string = a[0];
-	// 	const selectedOption = a[1];
-	// 	dateTutor[pickedDate] = selectedOption;
-	// 	setTutor(selectedOption);
-	// 	setDateTutor(dateTutor);
-	// };
-
 	const setWeekRange = (date: Date) => {
 		const selected = dayjs(date).startOf('week').toDate();
 		const newRange: DateRange = {
@@ -90,7 +82,7 @@ function DatePicker(props: any) {
 					today={today}
 					type={props.classType}
 					setSchedule={setSchedule}
-					dateTutor={setDateTutor}
+					dateTutor={dateTutor}
 				/>
 			</div>
 			<div className='w-1/4'>
