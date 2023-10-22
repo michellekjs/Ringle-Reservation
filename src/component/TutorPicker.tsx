@@ -49,19 +49,16 @@ const RadioCard = ({ person, selected, onChange }: RadioCardProps) => {
 
 function TutorPicker(props: TutorPickerProps) {
 	const [selectedOption, setSelectedOption] = useState<Tutor | null>();
-	const pickedDate = props.picked;
-	const [availabletutor, setAvailableTutors] = useState(tutorlist);
 
 	useEffect(() => setSelectedOption(null), [props.picked]);
 
-	const handleRadioChange = (e) => {
+	const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSelectedOption(JSON.parse(e.target.value));
 		props.pickTutor(JSON.parse(e.target.value));
 	};
 
 	const days = ['일', '월', '화', '수', '목', '금', '토'];
-	console.log(pickedDate);
-	return pickedDate === undefined ? (
+	return props.picked === undefined ? (
 		<div className='flex h-screen items-center place-content-center'>
 			{' '}
 			<div className=' border border-solid w-2/3 text-center px-4 py-4 text-gray-400'>
@@ -72,14 +69,14 @@ function TutorPicker(props: TutorPickerProps) {
 		<div className='h-screen border-l-2 divide-y divide-solid '>
 			<div className='flex h-12 items-center pl-4 '>
 				{' '}
-				{pickedDate.getMonth() + 1}월 {pickedDate.getDate()}일 (
-				{days[pickedDate.getDay()]}) {pickedDate.getHours()}:
-				{pickedDate.getMinutes() === 0 ? '00' : '30'}
+				{props.picked.getMonth() + 1}월 {props.picked.getDate()}일 (
+				{days[props.picked.getDay()]}) {props.picked.getHours()}:
+				{props.picked.getMinutes() === 0 ? '00' : '30'}
 			</div>
 			<div>
 				<div className='pl-4 pt-4'> 튜터 직접 선택 </div>
 				<div className='divide-y divide-solid overflow-scroll'>
-					{tutorlist.map((m, index) => (
+					{tutorlist.map((m) => (
 						<>
 							<RadioCard
 								person={m}

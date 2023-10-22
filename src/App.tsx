@@ -5,11 +5,18 @@ import DayPicker from './component/DayPicker.tsx';
 import { useState } from 'react';
 
 function App() {
-	const [type, setType] = useState<Number>(20);
+	const [type, setType] = useState<number>(20);
+
+	const onChangeType = (type: number) => {
+		setType(type);
+	};
 
 	return (
 		<div className='divide-y'>
-			<Header setType={setType} />
+			<Header
+				type={type}
+				onChangeType={onChangeType}
+			/>
 			<DayPicker classType={type} />
 		</div>
 	);

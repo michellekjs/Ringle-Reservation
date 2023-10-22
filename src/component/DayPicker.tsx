@@ -30,9 +30,8 @@ function DatePicker(props: any) {
 	const [range, setRange] = useState<DateRange | undefined>(defaultSelected);
 	const [hover, setHover] = useState<DateRange | undefined>(defaultSelected);
 	const [selectedSunday, setSelected] = useState<Date>(firstDayOfWeek.toDate());
-	const [schedule, setSchedule] = useState<Date[]>([]);
-	const [dateTutor, setDateTutor] = useState({});
-	// const [tutor, setSelectedTutor] = useState();
+	const [schedule, setSchedule] = useState<Date | undefined>(undefined);
+	const [dateTutor, setDateTutor] = useState<Map<Date, Tutor>>(new Map());
 
 	const hoverAction = (date: Date) => {
 		const firstDayofHover = dayjs(date).startOf('week').toDate();
@@ -44,8 +43,12 @@ function DatePicker(props: any) {
 	};
 
 	const setSelectedTutor = (t: Tutor) => {
-		dateTutor[schedule[0].toString()] = t;
-		setDateTutor(dateTutor);
+		if (schedule !== undefined) {
+			const newMap = new Map(dateTutor);
+			newMap.set(schedule, t);
+
+			setDateTutor(newMap);
+		}
 	};
 
 	const setWeekRange = (date: Date) => {
@@ -81,13 +84,14 @@ function DatePicker(props: any) {
 					sunday={selectedSunday}
 					today={today}
 					type={props.classType}
+					schedule={schedule}
 					setSchedule={setSchedule}
 					dateTutor={dateTutor}
 				/>
 			</div>
 			<div className='w-1/4'>
 				<TutorPicker
-					picked={schedule.length === 0 ? undefined : schedule[0]}
+					picked={schedule}
 					pickTutor={setSelectedTutor}
 				/>
 			</div>

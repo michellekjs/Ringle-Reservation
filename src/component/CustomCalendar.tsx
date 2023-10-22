@@ -4,39 +4,45 @@ import ScheduleSelector from 'react-schedule-selector';
 import profile from '../assets/profile.png';
 import close from '../assets/close.png';
 import { Dialog, DialogBody } from '@material-tailwind/react';
+import dayjs from 'dayjs';
+import { Tutor } from '../interfaces/Tutor';
 
-function CustomCalendar(props) {
-	const [schedule, setSchedule] = useState<Date[]>([]);
-	const [lastschedule, setLastSchedule] = useState<Date[]>([]);
-	const [dateTutor, setDateTutor] = useState({});
+type CustomCalendarProps = {
+	sunday: Date;
+	today: dayjs.Dayjs;
+	type: number;
+	schedule: Date | undefined;
+	setSchedule: React.Dispatch<React.SetStateAction<Date | undefined>>;
+	dateTutor: Map<Date, Tutor>;
+};
+
+function CustomCalendar(props: CustomCalendarProps) {
+	const [prevSchedule, setPrevSchedule] = useState<Date | undefined>(undefined);
 	const [tippopup, settippopup] = useState<boolean>(true);
 	const [cancel, setcancelOpen] = useState<boolean>(false);
-	const [cancelperson, setcancelPerson] = useState();
+	const [cancelTargetDate, setCancelTargetDate] = useState<Date | undefined>(
+		undefined
+	);
 
-	useEffect(() => {
-		props.setSchedule(schedule);
-		setDateTutor(props.dateTutor);
-	});
+	const handleChange = (newSchedule: Date[]) => {
+		if (newSchedule.slice(-1)[0] === prevSchedule) return;
 
-	const handleChange = (newSchedule) => {
-		// if (newSchedule.slice(-1)[0] >= new Date()) {
-		if (dateTutor[newSchedule.slice(-1)[0]] == undefined) {
-			console.log('FUFFUFUFUUFUF');
-			if (newSchedule.length == 0) {
-				console.log('SESEESEE');
-				// setcancelPerson(dateTutor[newSchedule.slice(-1)[0]]);
-				setcancelOpen(true);
-			}
-			// }
+		const clickedSchedule =
+			newSchedule.length === 0 ? prevSchedule : newSchedule.slice(-1)[0];
 
-			if (newSchedule.length < lastschedule.length) {
-				newSchedule = lastschedule;
-			}
+		const key = Array.from(props.dateTutor.keys()).find(
+			(key) => key.getTime() === clickedSchedule!.getTime()
+		);
 
-			setSchedule(newSchedule.slice(-1));
-			setLastSchedule(newSchedule);
-			console.log(cancel);
+		// 취소 팝업 여는 액션
+		if (key !== undefined && cancel === false) {
+			setCancelTargetDate(key);
+			setcancelOpen(true);
+		} else {
+			props.setSchedule(clickedSchedule);
 		}
+
+		setPrevSchedule(clickedSchedule);
 	};
 
 	const closeButtonClick = () => {
@@ -46,16 +52,22 @@ function CustomCalendar(props) {
 		setcancelOpen(!cancel);
 	};
 
-	const renderCustomDateCell = (time, selected, innerRef) => {
+	const renderCustomDateCell = (
+		time: Date,
+		selected: boolean,
+		_: (dateCellElement: HTMLElement) => void
+	) => {
 		const ampm =
 			time.getHours() >= 18 ? '저녁' : time.getHours() >= 12 ? '오후' : '오전';
 
+		const key = Array.from(props.dateTutor.keys()).find(
+			(key) => key.getTime() === time.getTime()
+		);
+		const selectedTutor = key ? props.dateTutor.get(key) : undefined;
+
 		return time < new Date() ? (
-			<div
-				className='border border-gray-100 z-10 h-8 bg-[#F6F4FA]'
-				// onClick={onDateClick}
-			/>
-		) : dateTutor[time] !== undefined ? (
+			<div className='border border-gray-100 z-10 h-8 bg-[#F6F4FA]' />
+		) : selectedTutor !== undefined ? (
 			<div
 				className={
 					props.type == 20
@@ -64,7 +76,7 @@ function CustomCalendar(props) {
 				}
 			>
 				<img
-					src={`/images/${dateTutor[time].profile}.jpeg`}
+					src={`/images/${selectedTutor.profile}.jpeg`}
 					alt='profile'
 					className='w-5 h-5 rounded-full object-cover'
 				/>
@@ -141,20 +153,22 @@ function CustomCalendar(props) {
 						className='w-[450px] h-[200px] flex justify-center p-2'
 					>
 						<DialogBody className='flex flex-col text-sm gap-4'>
-							<div> {schedule.toString()} </div>
+							<div> {cancelTargetDate!.toString()} </div>
 							<div className='flex flex-row items-center gap-2'>
 								<img
-									src={`/images/${dateTutor[schedule].profile}.jpeg`}
+									src={`/images/${
+										props.dateTutor.get(cancelTargetDate!)?.profile
+									}.jpeg`}
 									alt='profile'
 									className='w-8 h-8 rounded-full object-cover'
 								/>
-								<div> {dateTutor[schedule].name}</div>
+								<div> {props.dateTutor.get(cancelTargetDate!)?.name}</div>
 							</div>
 							<div> 이 수업을 삭제하시겠습니까?</div>
 							<div className='flex justify-end gap-3'>
 								<button
 									className='w-fit h-fit px-8 py-2 border border-solid border-violet-300 rounded-xl'
-									onClick={() => handleDialog(false)}
+									onClick={() => handleDialog()}
 								>
 									{' '}
 									취소{' '}
@@ -162,8 +176,8 @@ function CustomCalendar(props) {
 								<button
 									className='w-fit h-fit px-8 py-2 bg-violet-800 text-white rounded-xl'
 									onClick={() => {
-										delete dateTutor[schedule];
-										handleDialog(false);
+										props.dateTutor.delete(cancelTargetDate!);
+										handleDialog();
 									}}
 								>
 									{' '}
@@ -208,11 +222,11 @@ function CustomCalendar(props) {
 				</div>
 				<ScheduleSelector
 					numDays={7}
-					selection={schedule}
+					selection={props.schedule === undefined ? [] : [props.schedule]}
 					onChange={handleChange}
 					hourlyChunks={2}
-					rowGap={0}
-					columnGap={0}
+					rowGap='0'
+					columnGap='0'
 					minTime={0}
 					maxTime={24}
 					startDate={props.sunday}

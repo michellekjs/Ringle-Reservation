@@ -10,10 +10,11 @@ type RadioCardProps = {
 	onChange: any;
 };
 
-type classPopupProp = {
+type ClassPopupProp = {
+	type: number;
+	onChangeType: (type: number) => void;
 	modalOpen: boolean;
-	openModal: Function;
-	change: Function;
+	openModal: () => void;
 };
 
 const RadioCard = (props: RadioCardProps) => {
@@ -51,13 +52,11 @@ const RadioCard = (props: RadioCardProps) => {
 	);
 };
 
-function ClassTypePopup(props: classPopupProp) {
-	const [selectedOption, setSelectedOption] = useState(20);
-	const handleRadioChange = (e) => {
-		setSelectedOption(e.target.value);
+function ClassTypePopup(props: ClassPopupProp) {
+	const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		props.onChangeType(parseInt(e.target.value));
 		props.openModal();
 	};
-	props.change(selectedOption);
 
 	return (
 		<div className='grid place-items-center'>
@@ -77,7 +76,7 @@ function ClassTypePopup(props: classPopupProp) {
 							time='20분'
 							title='1회 패키지(20분)'
 							description='수강기간: 30일 남음.'
-							selected={selectedOption}
+							selected={props.type}
 							onChange={handleRadioChange}
 						/>
 						<RadioCard
@@ -85,7 +84,7 @@ function ClassTypePopup(props: classPopupProp) {
 							time='40분'
 							title='1회 패키지'
 							description='수강 기간: 365일 남음'
-							selected={selectedOption}
+							selected={props.type}
 							onChange={handleRadioChange}
 						/>
 					</div>
