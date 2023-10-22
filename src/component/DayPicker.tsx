@@ -6,6 +6,7 @@ import { DateRange, DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import TutorPicker from './TutorPicker.tsx';
 import dayjs from 'dayjs';
+import { Tutor } from '../interfaces/Tutor.ts';
 
 const today = dayjs();
 const firstDayOfWeek = today.startOf('week');
@@ -31,7 +32,7 @@ function DatePicker(props: any) {
 	const [selectedSunday, setSelected] = useState<Date>(firstDayOfWeek.toDate());
 	const [schedule, setSchedule] = useState<Date[]>([]);
 	const [dateTutor, setDateTutor] = useState({});
-	const [tutor, setTutor] = useState('');
+	// const [tutor, setSelectedTutor] = useState();
 
 	const hoverAction = (date: Date) => {
 		const firstDayofHover = dayjs(date).startOf('week').toDate();
@@ -42,13 +43,18 @@ function DatePicker(props: any) {
 		setHover(range);
 	};
 
-	const setDT = (a) => {
-		const pickedDate: string = a[0];
-		const selectedOption = a[1];
-		dateTutor[pickedDate] = selectedOption;
-		setTutor(selectedOption);
+	const setSelectedTutor = (t: Tutor) => {
+		dateTutor[schedule[0].toString()] = t;
 		setDateTutor(dateTutor);
 	};
+
+	// const setDT = (a) => {
+	// 	const pickedDate: string = a[0];
+	// 	const selectedOption = a[1];
+	// 	dateTutor[pickedDate] = selectedOption;
+	// 	setTutor(selectedOption);
+	// 	setDateTutor(dateTutor);
+	// };
 
 	const setWeekRange = (date: Date) => {
 		const selected = dayjs(date).startOf('week').toDate();
@@ -85,13 +91,12 @@ function DatePicker(props: any) {
 					type={props.classType}
 					setSchedule={setSchedule}
 					dateTutor={setDateTutor}
-					tutor={setTutor}
 				/>
 			</div>
 			<div className='w-1/4'>
 				<TutorPicker
 					picked={schedule.length === 0 ? undefined : schedule[0]}
-					setDT={setDT}
+					pickTutor={setSelectedTutor}
 				/>
 			</div>
 		</div>

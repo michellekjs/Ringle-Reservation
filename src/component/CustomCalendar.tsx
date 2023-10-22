@@ -15,15 +15,26 @@ function CustomCalendar(props) {
 	const [tutor, setTutor] = useState('');
 	const [change, setChange] = useState<boolean>(true);
 
-	props.setSchedule(schedule);
-	props.dateTutor(dateTutor);
-	props.tutor(tutor);
+	useEffect(() => {
+		props.setSchedule(schedule);
+		props.dateTutor(dateTutor);
+	});
 
 	const handleChange = (newSchedule) => {
+		console.log(
+			'SCHEUDLE CONSOLE',
+			newSchedule.length == 0,
+			dateTutor[newSchedule.slice(-1)[0]]
+		);
+		// dateTutor[newSchedule.slice(-1)[0]];
+
 		if (newSchedule.length < lastschedule.length) {
 			newSchedule = lastschedule;
 		}
-		if (dateTutor[newSchedule.slice(-1)[0]] != undefined) {
+		if (
+			dateTutor[newSchedule.slice(-1)[0]] != undefined &&
+			newSchedule.length == 0
+		) {
 			console.log(tutor, dateTutor[newSchedule.slice(-1)[0]]);
 			setcancelPerson(dateTutor[newSchedule.slice(-1)[0]]);
 			setcancelOpen(true);

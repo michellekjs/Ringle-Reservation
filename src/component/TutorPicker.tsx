@@ -11,7 +11,7 @@ type RadioCardProps = {
 
 type TutorPickerProps = {
 	picked: Date | undefined;
-	setDT: Function;
+	pickTutor: Function;
 };
 
 const RadioCard = ({ person, selected, onChange }: RadioCardProps) => {
@@ -57,7 +57,8 @@ function TutorPicker(props: TutorPickerProps) {
 
 	const handleRadioChange = (e) => {
 		setSelectedOption(JSON.parse(e.target.value));
-		props.setDT([pickedDate, JSON.parse(e.target.value)]);
+		props.pickTutor(JSON.parse(e.target.value));
+		// props.setDT([pickedDate, JSON.parse(e.target.value)]);
 	};
 
 	const days = ['일', '월', '화', '수', '목', '금', '토'];
